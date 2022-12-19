@@ -8,7 +8,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        keys: [ '플라워_1-1', '비누_1-1' ]
+        keys: [ '플라워_1-2', '비누_1-2' ]
     steps:
       - uses: actions/checkout@v3
         with:
