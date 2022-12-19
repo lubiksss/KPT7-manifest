@@ -1,5 +1,8 @@
 name: Adhoc
-on: push
+on:
+  push:
+    tags:
+      - 'v*.*.*-*'
 jobs:
   adhoc:
     runs-on: windows-latest
@@ -11,6 +14,7 @@ jobs:
         with:
           repository: 'lubiksss/KPT7-daum-site'
           token: ${{ secrets.GH_TOKEN }}
+      - run: git checkout tags/v2.1.0
       - uses: actions/setup-node@v3
         with:
           node-version: 14
