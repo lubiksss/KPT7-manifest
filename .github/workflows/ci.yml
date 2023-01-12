@@ -33,7 +33,7 @@ jobs:
         with:
           repository: 'lubiksss/KPT7-daum-site'
           token: ${{ secrets.GH_TOKEN }}
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3.3.0
         with:
           node-version: 14
       - run: npm ci
