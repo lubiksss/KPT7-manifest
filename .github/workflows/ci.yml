@@ -8,23 +8,24 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        keys:     [
-          '멸치_1-2',      '멸치_3-4',     '멸치_5-6',
-          '쿠키_1-2',      '쿠키_3-4',     '쿠키_5-6',
-          '쿠키_7-8',      '쿠키_9-10',    '초콜릿_1-2',
-          '초콜릿_3-4',    '초콜릿_5-6',   '초콜릿_7-8',
-          '초콜릿_9-10',   '곶감_1-2',     '곶감_3-4',
-          '곶감_5-6',      '농원_1-2',     '농원_3-4',
-          '농원_5-6',      '농원_7-8',     '농원_9-10',
-          '화장품_1-2',    '화장품_3-4',   '화장품_5-6',
-          '화장품_7-8',    '화장품_9-10',  '베이커리_1-2',
-          '베이커리_3-4',  '베이커리_5-6', '베이커리_7-8',
-          '베이커리_9-10', '곡물_1-2',     '곡물_3-4',
-          '한과_1-2',      '한과_3-4',     '한과_5-6',
-          '한과_7-8',      '한과_9-10',    '떡_1-2',
-          '떡_3-4',        '떡_5-6',       '떡_7-8',
-          '떡_9-10'
-         ]
+        keys: [
+          '원예_1-2',       '원예_3-4',
+          '원예_5-6',       '원예_7-8',
+          '원예_9-10',      '다육_1-2',
+          '다육_3-4',       '비료_1-2',
+          '비료_3-4',       '비료_5-6',
+          '비료_7-7',       '농약_1-2',
+          '농약_3-4',       '농약_5-6',
+          '농약_7-8',       '허브_1-2',
+          '허브_3-4',       '허브_5-6',
+          '허브_7-8',       '허브_9-10',
+          '기독교용품_1-2', '기독교용품_3-3',
+          '천주교용품_1-1', '불교용품_1-2',
+          '한방_1-2',       '한방_3-4',
+          '한방_5-6',       '한방_7-8',
+          '한방_9-10',      '참기름_1-2',
+          '참기름_3-4'
+        ]
 
     steps:
       - uses: actions/checkout@v3
@@ -66,35 +67,3 @@ jobs:
           name: result
           path: './*.xlsx'
           retention-days: 1
-
-  adhoc-noti-success:
-    needs: adhoc
-    if: ${{ always() && contains(needs.adhoc.result, 'success') }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Adhoc Success
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            Author: ${{github.actor}}
-            Status: 😚 **Success**
-            Action: https://github.com/${{ github.repository }}/actions
-            **Adhoc**
-
-  adhoc-noti-fail:
-    needs: adhoc
-    if: ${{ always() && contains(needs.adhoc.result, 'fail') }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Adhoc Failure
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: |
-            Author: ${{github.actor}}
-            Status: 😱 **Failure**
-            Action: https://github.com/${{ github.repository }}/actions
-            **Adhoc**
